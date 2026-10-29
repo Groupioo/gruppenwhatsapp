@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f5f0">
+<title>Deutsche WhatsApp-Gruppen entdecken</title>
+<meta name="description" content="Entdecke deutsche WhatsApp-Gruppen und informiere dich über die Registrierung.">
+
+<style>
+:root {
+  --bg: #f5f5f0;
+  --ink: #171713;
+  --muted: #68685f;
+  --lime: #b9f86a;
+  --line: #e0e0d8;
+  --white: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* Elimina el rectángulo azul de selección en móviles */
+}
+
+body {
+  min-height: 100vh;
+  padding: 22px 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  user-select: none; /* Evita selección de texto molesta al hacer clic rápido */
+}
+
+.page {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 19px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.brand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--lime);
+}
+
+.brand-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #171713;
+}
+
+.country {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.flag {
+  display: inline-block;
+  width: 23px;
+  height: 16px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: linear-gradient(
+    to bottom,
+    #000 0 33.33%,
+    #dd0000 33.33% 66.66%,
+    #ffce00 66.66% 100%
+  );
+}
+
+.hero {
+  padding: 30px 0 23px;
+}
+
+.eyebrow {
+  margin-bottom: 13px;
+  color: #55554d;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+h1 {
+  font-size: clamp(32px, 7vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -1.7px;
+}
+
+h1 span {
+  background: var(--lime);
+  padding: 0 4px;
+}
+
+.description {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 13px;
+}
+
+.section-title h2 {
+  font-size: 17px;
+}
+
+.section-title span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.groups {
+  display: grid;
+  gap: 11px;
+  margin-bottom: 23px;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--white);
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.group:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.group-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: #eff8e5;
+  overflow: hidden;
+}
+
+.group-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.group-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.group-name {
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.group-members {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #5d6559;
+  font-size: 15px;
+}
+
+.member-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #39a957;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(185, 248, 106, 0.7);
+  }
+  70% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 8px rgba(185, 248, 106, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(185, 248, 106, 0);
+  }
+}
+
+.group-tag {
+  display: inline-block;
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--lime);
+  color: #171713;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 800;
+  outline: none;
+  animation: pulseGlow 2s infinite ease-in-out;
+  transition: background 0.2s ease;
+}
+
+.group-tag:hover {
+  background: #a3e852;
+  animation: none;
+  transform: scale(1.08);
+}
+
+.group-tag:active {
+  transform: scale(0.95);
+}
+
+/* Estilos del Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background: var(--white);
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transform: scale(0.8);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  color: var(--muted);
+  transition: transform 0.2s, color 0.2s;
+}
+
+.modal-close:hover {
+  transform: scale(1.2);
+  color: var(--ink);
+}
+
+.modal-badge {
+  position: absolute;
+  top: 15px;
+  left: 18px;
+  padding: 5px 10px;
+  background: #fdf6dc;
+  color: #b8860b;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.modal-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 10px auto 15px;
+  border: 3px solid var(--lime);
+}
+
+.modal-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.modal-members {
+  font-size: 13px;
+  color: #5d6559;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.modal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--lime);
+  color: #171713;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 800;
+  outline: none;
+  animation: pulseGlow 2s infinite ease-in-out;
+  transition: background 0.2s ease;
+}
+
+.modal-btn:hover {
+  background: #a3e852;
+  animation: none;
+}
+
+.cta-panel {
+  padding: 23px 19px;
+  border-radius: 18px;
+  background: var(--lime);
+}
+
+.cta-panel h2 {
+  font-size: 25px;
+  line-height: 1.15;
+  letter-spacing: -.6px;
+}
+
+.cta-panel p {
+  margin-top: 9px;
+  color: #42483a;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+@keyframes superPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(185, 248, 106, 0.8);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px 5px rgba(185, 248, 106, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(185, 248, 106, 0);
+  }
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 56px;
+  margin-top: 18px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #171713;
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 800;
+  outline: none;
+  animation: superPulse 2.5s infinite ease-in-out;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.cta:hover {
+  background: #2b2b23;
+  animation: none;
+  transform: scale(1.03);
+}
+
+.cta:active {
+  transform: scale(0.98);
+}
+
+.cta-arrow {
+  color: var(--lime);
+  font-size: 21px;
+  transition: transform 0.25s ease;
+}
+
+.cta:hover .cta-arrow {
+  transform: translateX(4px) translateY(-4px);
+}
+
+.note {
+  margin-top: 12px;
+  color: #55554d;
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+footer {
+  margin-top: 19px;
+  color: #77776e;
+  font-size: 10px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+@media (max-width: 380px) {
+  .brand {
+    font-size: 15px;
+  }
+
+  .country {
+    font-size: 9px;
+  }
+
+  .group {
+    gap: 9px;
+    padding: 12px 10px;
+  }
+
+  .group-avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .group-name {
+    font-size: 12px;
+  }
+
+  .group-tag {
+    font-size: 9px;
+    padding: 6px 8px;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <header>
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zM12.04 20.12c-1.42 0-2.81-.38-4.03-1.1l-.29-.17-3.01.79.8-2.94-.19-.31c-.81-1.3-1.24-2.81-1.24-4.35 0-4.52 3.68-8.2 8.2-8.2 2.19 0 4.25.85 5.8 2.4 1.55 1.55 2.4 3.6 2.4 5.8 0 4.52-3.68 8.2-8.2 8.2zm4.51-6.17c-.25-.13-1.47-.73-1.7-.82-.23-.09-.4-.13-.57.13-.17.27-.66.82-.81.99-.15.17-.3.19-.55.06-.25-.13-1.05-.39-2-1.24-.74-.66-1.24-1.48-1.39-1.73-.15-.25-.02-.38.11-.51.11-.11.25-.3.38-.45.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.13-.57-1.38-.78-1.89-.2-.5-.4-.43-.57-.44l-.49-.01c-.17 0-.45.06-.68.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.02 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.42 1.44.54.61.19 1.16.16 1.6-.03.49-.2 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3z"/>
+        </svg>
+      </div>
+      <span>GruppenFinder</span>
+    </div>
+
+    <div class="country">
+      <span class="flag" aria-label="Deutsche Flagge"></span>
+      DEUTSCHLAND
+    </div>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">🇩🇪 DEUTSCHE WHATSAPP-COMMUNITIES</p>
+
+    <h1>
+      Finde geile
+      <span>Gruppen 24/ 7</span>
+    </h1>
+
+    <p class="description">
+      Entdecke WhatsApp-Gruppen in Deutschland. Lerne die exotischsten Frauen in den verfügbaren Communities kennen und registriere dich, um fortzufahren.
+    </p>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>Beliebte Gruppen</h2>
+      <span>Deutschland 🇩🇪</span>
+    </div>
+
+    <div class="groups">
+
+      <article class="group" onclick="openModal('https://i.imgur.com/gPWCIGq.jpeg', 'GruppenSEX🇩🇪🔥', 766, 'https://ybzpmr8.boldmatching.org/rw3233h', event)">
+        <div class="group-avatar">
+          <img src="https://i.imgur.com/gPWCIGq.jpeg" alt="Grupo 1">
+        </div>
+        <div class="group-info">
+          <div class="group-name">GruppenSEX🇩🇪🔥</div>
+          <div class="group-members">
+            <span class="member-dot"></span>
+            <span class="member-count" data-base="766">766</span> Mitglieder
+          </div>
+        </div>
+        <button class="group-tag" onclick="openModal('https://i.imgur.com/gPWCIGq.jpeg', 'GruppenSEX🇩🇪🔥', 766, 'https://ybzpmr8.boldmatching.org/rw3233h', event); event.stopPropagation();">Eingeben</button>
+      </article>
+
+      <article class="group" onclick="openModal('https://i.imgur.com/kumBvl5.jpeg', 'Deutsche Gemeinschaft🇩🇪💦', 1202, 'https://ybzpmr8.boldmatching.org/rw3233h', event)">
+        <div class="group-avatar">
+          <img src="https://i.imgur.com/kumBvl5.jpeg" alt="Grupo 2">
+        </div>
+        <div class="group-info">
+          <div class="group-name">Deutsche Gemeinschaft🇩🇪💦</div>
+          <div class="group-members">
+            <span class="member-dot"></span>
+            <span class="member-count" data-base="1202">1202</span> Mitglieder
+          </div>
+        </div>
+        <button class="group-tag" onclick="openModal('https://i.imgur.com/kumBvl5.jpeg', 'Deutsche Gemeinschaft🇩🇪💦', 1202, 'https://ybzpmr8.boldmatching.org/rw3233h', event); event.stopPropagation();">Eingeben</button>
+      </article>
+
+      <article class="group" onclick="openModal('https://i.imgur.com/VoyYb2J.jpeg', 'Geilegruppe2026🇩🇪⭐', 970, 'https://ybzpmr8.boldmatching.org/rw3233h', event)">
+        <div class="group-avatar">
+          <img src="https://i.imgur.com/VoyYb2J.jpeg" alt="Grupo 3">
+        </div>
+        <div class="group-info">
+          <div class="group-name">Geilegruppe2026🇩🇪⭐</div>
+          <div class="group-members">
+            <span class="member-dot"></span>
+            <span class="member-count" data-base="970">970</span> Mitglieder
+          </div>
+        </div>
+        <button class="group-tag" onclick="openModal('https://i.imgur.com/VoyYb2J.jpeg', 'Geilegruppe2026🇩🇪⭐', 970, 'https://ybzpmr8.boldmatching.org/rw3233h', event); event.stopPropagation();">Eingeben</button>
+      </article>
+
+      <article class="group" onclick="openModal('https://i.imgur.com/jYTwund.jpeg', 'Deutsche Gruppe 🇩🇪', 930, 'https://ybzpmr8.boldmatching.org/rw3233h', event)">
+        <div class="group-avatar">
+          <img src="https://i.imgur.com/jYTwund.jpeg" alt="Grupo 4">
+        </div>
+        <div class="group-info">
+          <div class="group-name">Deutsche Gruppe 🇩🇪</div>
+          <div class="group-members">
+            <span class="member-dot"></span>
+            <span class="member-count" data-base="930">930</span> Mitglieder
+          </div>
+        </div>
+        <button class="group-tag" onclick="openModal('https://i.imgur.com/jYTwund.jpeg', 'Deutsche Gruppe 🇩🇪', 930, 'https://ybzpmr8.boldmatching.org/rw3233h', event); event.stopPropagation();">Eingeben</button>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Ventana Modal -->
+  <div class="modal-overlay" id="groupModal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div class="modal-badge">⭐ PREMIUM</div>
+      <div class="modal-avatar">
+        <img id="modalImg" src="" alt="Grupo">
+      </div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-members">
+        <span class="member-dot"></span>
+        <span id="modalMembersText"></span>
+      </div>
+      <a id="modalBtn" href="#" class="modal-btn" target="_blank" rel="noopener noreferrer">Grupo beitreten</a>
+    </div>
+  </div>
+
+  <section class="cta-panel">
+    <h2>Finde deine nächste Community!</h2>
+
+    <p>
+      Registriere dich, um fortzufahren und Gruppen beizutreten, die rund um die Uhr am aktivsten sind.
+    </p>
+
+    <a
+      class="cta"
+      href="https://ybzpmr8.boldmatching.org/rw3233h"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Jetzt registrieren
+      <span class="cta-arrow">↗</span>
+    </a>
+  </section>
+
+  <p class="note">
+  </p>
+
+  <footer>
+  </footer>
+
+</main>
+
+<script>
+  let currentModalBase = 0;
+
+  function openModal(imgSrc, title, baseMembers, link, clickEvent) {
+    currentModalBase = baseMembers;
+    document.getElementById('modalImg').src = imgSrc;
+    document.getElementById('modalTitle').innerText = title;
+    
+    let activeCountElem = clickEvent.currentTarget.closest('.group').querySelector('.member-count');
+    let currentVal = activeCountElem ? activeCountElem.innerText : baseMembers;
+    
+    document.getElementById('modalMembersText').innerText = currentVal + " Mitglieder";
+    document.getElementById('modalBtn').href = link;
+    document.getElementById('groupModal').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('groupModal').classList.remove('active');
+  }
+
+  setInterval(() => {
+    const counters = document.querySelectorAll('.member-count');
+    counters.forEach(counter => {
+      let base = parseInt(counter.getAttribute('data-base'));
+      let current = parseInt(counter.innerText);
+      
+      let change = Math.floor(Math.random() * 7) - 2; 
+      let newVal = current + change;
+      
+      if (newVal < base) {
+        newVal = base + Math.floor(Math.random() * 3);
+      }
+      
+      counter.innerText = newVal;
+
+      if (document.getElementById('groupModal').classList.contains('active') && currentModalBase === base) {
+        document.getElementById('modalMembersText').innerText = newVal + " Mitglieder";
+      }
+    });
+  }, 3000);
+</script>
+
+</body>
+<style>html{
+ color:darkviolet;
+ font-size:25px;
+ font-weight:600;
+}
+</style>
+<style>html{
+ color:darkviolet;
+ font-size:25px;
+ font-weight:600;
+}
+</style><script>/*Here write your javascript code*/</script></html>
